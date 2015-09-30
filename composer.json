@@ -1,0 +1,10 @@
+{
+    "name": "onebip/onebip-clock",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "Onebip\\": "src/"
+        }
+    }
+}
