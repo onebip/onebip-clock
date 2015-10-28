@@ -7,7 +7,7 @@ class MicrotimeClockStopWatchTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->clock = new FixedMicrotimeClock(42.32);
+        $this->clock = new FixedMicrotimeClock(45.123456);
         $this->stopWatch = new MicrotimeClockStopWatch($this->clock);
     }
 
@@ -38,10 +38,10 @@ class MicrotimeClockStopWatchTest extends \PHPUnit_Framework_TestCase
     public function testElapsedAfterStopping()
     {
         $this->stopWatch->start();
-        $this->clock->nowIs(98.98);
+        $this->clock->nowIs(98.987653);
 
-        $this->assertEquals(56.66, $this->stopWatch->elapsedMicroseconds(), '', 0.01);
-        $this->assertEquals(0.05666, $this->stopWatch->elapsedMilliseconds(), '', 0.00001);
-        $this->assertEquals(0.00005666, $this->stopWatch->elapsedSeconds(), '', 0.00000001);
+        $this->assertEquals(53.864197, $this->stopWatch->elapsedSeconds(), '', 0.000001);
+        $this->assertEquals(53864.197, $this->stopWatch->elapsedMilliseconds(), '', 0.001);
+        $this->assertEquals(53864197, $this->stopWatch->elapsedMicroseconds(), '', 1);
     }
 }

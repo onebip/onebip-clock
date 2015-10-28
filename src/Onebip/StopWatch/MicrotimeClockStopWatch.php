@@ -25,7 +25,12 @@ class MicrotimeClockStopWatch implements StopWatch
      */
     public function elapsedSeconds()
     {
-        return $this->elapsedMilliseconds() / 1000;
+        if (!$this->start) {
+            throw new StopWatchNotStartedException();
+        }
+
+        $now = $this->clock->current();
+        return $now - $this->start;
     }
 
     /**
@@ -33,7 +38,7 @@ class MicrotimeClockStopWatch implements StopWatch
      */
     public function elapsedMilliseconds()
     {
-        return $this->elapsedMicroseconds() / 1000;
+        return $this->elapsedSeconds() * 1000;
     }
 
     /**
@@ -41,11 +46,6 @@ class MicrotimeClockStopWatch implements StopWatch
      */
     public function elapsedMicroseconds()
     {
-        if (!$this->start) {
-            throw new StopWatchNotStartedException();
-        }
-
-        $now = $this->clock->current();
-        return $now - $this->start;
+        return $this->elapsedMilliseconds() * 1000;
     }
 }
