@@ -1,0 +1,7 @@
+<phpunit colors="true" bootstrap="spec/bootstrap.php" backupGlobals="false">
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>spec</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
