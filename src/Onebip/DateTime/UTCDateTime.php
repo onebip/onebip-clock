@@ -337,6 +337,13 @@ final class UTCDateTime
         );
     }
 
+    public function startOfMonth()
+    {
+        return self::box(
+            $this->toYearMonth() . '-01'
+        );
+    }
+
     public function diff(UTCDateTime $another)
     {
         return $this->toDateTime()->diff($another->toDateTime());

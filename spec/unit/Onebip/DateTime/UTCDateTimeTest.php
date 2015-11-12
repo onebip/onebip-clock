@@ -559,4 +559,25 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
                 );
             });
     }
+
+    public function testStartOfMonthWillGiveTheFirstDay()
+    {
+        $this
+            ->forAll(
+                Generator\date(
+                    new DateTime('1980-01-01'),
+                    new DateTime('2020-12-31')
+                )
+            )
+            ->then(function (DateTime $date) {
+                $date->setTimeZone(new DateTimeZone('UTC'));
+                $expected = UTCDateTime::box($date->format('Y-m-01'));
+
+                $this->assertEquals(
+                    $expected,
+                    UTCDateTime::box($date)->startOfMonth()
+                );
+            })
+        ;
+    }
 }
