@@ -571,11 +571,11 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
             )
             ->then(function (DateTime $date) {
                 $date->setTimeZone(new DateTimeZone('UTC'));
-                $expected = UTCDateTime::box($date->format('Y-m-01'));
+                $prefix = $date->format('Y-m');
 
                 $this->assertEquals(
-                    $expected,
-                    UTCDateTime::box($date)->startOfMonth()
+                    $prefix . '-01T00:00:00.000+0000',
+                    UTCDateTime::box($date)->startOfMonth()->toIso8601WithMilliseconds()
                 );
             })
         ;
