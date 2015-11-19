@@ -15,5 +15,5 @@ install:
   - composer install --prefer-dist --no-interaction
 
 script:
-  - bin/phpunit
+  - vendor/bin/phpunit
 
