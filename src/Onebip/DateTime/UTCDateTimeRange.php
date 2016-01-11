@@ -8,14 +8,17 @@ final class UTCDateTimeRange
     private $toOperator;
     private $defaultFormatter;
 
+    const LESS_THAN = 1;
+    const LESS_THAN_EQUALS = 2;
+
     public static function fromIncludedToExcluded(UTCDateTime $from, UTCDateTime $to)
     {
-        return new self($from, $to, '$lt');
+        return new self($from, $to, self::LESS_THAN);
     }
 
     public static function fromIncludedToIncluded(UTCDateTime $from, UTCDateTime $to)
     {
-        return new self($from, $to, '$lte');
+        return new self($from, $to, self::LESS_THAN_EQUALS);
     }
 
     private function __construct($from, $to, $toOperator)
@@ -34,8 +37,16 @@ final class UTCDateTimeRange
 
         return [
             '$gte' => $formatter($this->from),
-            $this->toOperator => $formatter($this->to),
+            $this->mongoOperator($this->toOperator) => $formatter($this->to),
         ];
+    }
+
+    private function mongoOperator($toOperator)
+    {
+        switch ($toOperator) {
+            case self::LESS_THAN: return '$lt';
+            case self::LESS_THAN_EQUALS: return '$lte';
+        }
     }
 
     public function toMongoQueryOnField($fieldName, callable $formatter = null)
@@ -62,5 +73,52 @@ final class UTCDateTimeRange
     public function toApiFormat()
     {
         return sprintf('%s..%s', $this->from->toApiFormat(), $this->to->toApiFormat());
+    }
+
+    public function iteratorOnHours($increment = 1)
+    {
+        return $this->generatorWith(
+            function ($dateTime) use ($increment) {
+                return $dateTime->addHours($increment);
+            }
+        );
+    }
+
+    public function iterateOnDays($increment = 1)
+    {
+        return $this->generatorWith(
+            function ($dateTime) use ($increment) {
+                return $dateTime->addDays($increment);
+            }
+        );
+    }
+
+    public function iterateOnMonths($increment = 1)
+    {
+        return $this->generatorWith(
+            function ($dateTime) use ($increment) {
+                return $dateTime->addMonths($increment);
+            }
+        );
+    }
+
+    private function generatorWith(callable $incrementer)
+    {
+        return new RangeIterator(
+            $this->from,
+            $this->to,
+            $this->dateComparator(),
+            $incrementer
+        );
+    }
+
+    private function dateComparator()
+    {
+        switch ($this->toOperator) {
+        case self::LESS_THAN:
+            return function ($x, $y) { return $x < $y; };
+        case self::LESS_THAN_EQUALS:
+            return function ($x, $y) { return $x <= $y; };
+        }
     }
 }
