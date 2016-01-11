@@ -115,4 +115,104 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('20150101000000..20150102000000', $range->toApiFormat());
     }
+
+    public function testHourExcludedRangeGenerator()
+    {
+        $range = UTCDateTimeRange::fromIncludedToExcluded(
+            UTCDateTime::box('2015-01-01 03:00'),
+            UTCDateTime::box('2015-01-01 05:00')
+        );
+
+        $this->assertEquals(
+            [
+                UTCDateTime::box('2015-01-01 03:00'),
+                UTCDateTime::box('2015-01-01 04:00'),
+            ],
+            iterator_to_array($range->iteratorOnHours())
+        );
+    }
+
+    public function testHourIncludedRangeGenerator()
+    {
+        $range = UTCDateTimeRange::fromIncludedToIncluded(
+            UTCDateTime::box('2015-01-01 03:00'),
+            UTCDateTime::box('2015-01-01 05:00')
+        );
+
+        $this->assertEquals(
+            [
+                UTCDateTime::box('2015-01-01 03:00'),
+                UTCDateTime::box('2015-01-01 04:00'),
+                UTCDateTime::box('2015-01-01 05:00'),
+            ],
+            iterator_to_array($range->iteratorOnHours())
+        );
+    }
+
+    public function testDayExcludedRangeGenerator()
+    {
+        $range = UTCDateTimeRange::fromIncludedToExcluded(
+            UTCDateTime::box('2015-01-01 03:00'),
+            UTCDateTime::box('2015-01-05 03:00')
+        );
+
+        $this->assertEquals(
+            [
+                UTCDateTime::box('2015-01-01 03:00'),
+                UTCDateTime::box('2015-01-03 03:00'),
+            ],
+            iterator_to_array($range->iterateOnDays(2))
+        );
+    }
+
+    public function testDayIncludedRangeGenerator()
+    {
+        $range = UTCDateTimeRange::fromIncludedToIncluded(
+            UTCDateTime::box('2015-01-01 03:00'),
+            UTCDateTime::box('2015-01-03 05:00')
+        );
+
+        $this->assertEquals(
+            [
+                UTCDateTime::box('2015-01-01 03:00'),
+                UTCDateTime::box('2015-01-02 03:00'),
+                UTCDateTime::box('2015-01-03 03:00'),
+            ],
+            iterator_to_array($range->iterateOnDays())
+        );
+    }
+
+    public function testMonthExcludedRangeGenerator()
+    {
+        $range = UTCDateTimeRange::fromIncludedToExcluded(
+            UTCDateTime::box('2015-01-01 03:00'),
+            UTCDateTime::box('2015-05-01 03:00')
+        );
+
+        $this->assertEquals(
+            [
+                UTCDateTime::box('2015-01-01 03:00'),
+                UTCDateTime::box('2015-03-01 03:00'),
+            ],
+            iterator_to_array($range->iterateOnMonths(2))
+        );
+    }
+
+    public function testMonthIncludedRangeGenerator()
+    {
+        $range = UTCDateTimeRange::fromIncludedToIncluded(
+            UTCDateTime::box('2015-01-01 03:00'),
+            UTCDateTime::box('2015-04-01 05:00')
+        );
+
+        $this->assertEquals(
+            [
+                UTCDateTime::box('2015-01-01 03:00'),
+                UTCDateTime::box('2015-02-01 03:00'),
+                UTCDateTime::box('2015-03-01 03:00'),
+                UTCDateTime::box('2015-04-01 03:00'),
+            ],
+            iterator_to_array($range->iterateOnMonths())
+        );
+    }
 }
