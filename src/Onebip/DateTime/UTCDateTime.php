@@ -46,14 +46,21 @@ final class UTCDateTime
     {
         $isoRepresentation = $this->toDateTime()
             ->format(DateTime::ISO8601) ;
-        return $this->insertMicroSeconds($isoRepresentation, $this->usec);
+        return $this->insertSubseconds($isoRepresentation, $this->usec / 1000, 3);
     }
 
-    private function insertMicroSeconds($isoRepresentation, $usec)
+    public function toIso8601WithMicroseconds()
+    {
+        $isoRepresentation = $this->toDateTime()
+            ->format(DateTime::ISO8601) ;
+        return $this->insertSubseconds($isoRepresentation, $this->usec, 6);
+    }
+
+    private function insertSubseconds($isoRepresentation, $subseconds, $padding)
     {
         return str_replace(
             '+',
-            '.' . sprintf("%03d", ($usec / 1000)) . '+',
+            '.' . sprintf("%0{$padding}d", $subseconds) . '+',
             $isoRepresentation
         );
     }
