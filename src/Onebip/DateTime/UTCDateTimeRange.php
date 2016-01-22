@@ -70,6 +70,11 @@ final class UTCDateTimeRange
         return $this->to;
     }
 
+    public function toOperator()
+    {
+        return $this->toOperator;
+    }
+
     public function toApiFormat()
     {
         return sprintf('%s..%s', $this->from->toApiFormat(), $this->to->toApiFormat());
