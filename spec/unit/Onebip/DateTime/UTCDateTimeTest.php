@@ -217,6 +217,18 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMicrosecondsAreReportedDuringFormattingWhenAvailable()
+    {
+        $this->assertEquals(
+            "2001-09-09T01:46:40.000000+0000",
+            UTCDateTime::box("2001-09-09T01:46:40")->toIso8601WithMicroseconds()
+        );
+        $this->assertEquals(
+            "2001-09-09T01:46:40.123456+0000",
+            UTCDateTime::fromMicrotime("0.123456 1000000000")->toIso8601WithMicroseconds()
+        );
+    }
+
     public function testPrecisionIsKeptEvenDuringSubtractionOfSecondsOperation()
     {
         $this->assertEquals(
