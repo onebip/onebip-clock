@@ -612,4 +612,44 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
             })
         ;
     }
+
+    public function testBoxingWithFractionalSeconds()
+    {
+        $this->assertEquals(
+            UTCDateTime::box('2016-01-26 09:34:02')->withUsec(213060),
+            UTCDateTime::box('2016-01-26 09:34:02.21306')
+        );
+
+        $this->assertEquals(
+            UTCDateTime::box('2016-01-26 09:34:02'),
+            UTCDateTime::box('2016-01-26 09:34:02.')
+        );
+
+        $this->assertEquals(
+            UTCDateTime::box('2016-01-26 09:34:02'),
+            UTCDateTime::box('2016-01-26 09:34:02.0')
+        );
+
+        $this->assertEquals(
+            UTCDateTime::box('2016-01-26 09:34:02')->withUsec(100000),
+            UTCDateTime::box('2016-01-26 09:34:02.1')
+        );
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage expected ISO8601 with/without one fractional part separated by dot, got '2016-01-26 09:34:02.123.143'
+     */
+    public function testBoxingFractionalSecondsFormatErrors()
+    {
+        UTCDateTime::box('2016-01-26 09:34:02.123.143');
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testBoxingFractionalSecondsGreaterThanRange()
+    {
+        UTCDateTime::box('2016-01-26 09:34:02.1234567');
+    }
 }

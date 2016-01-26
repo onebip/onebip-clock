@@ -128,7 +128,22 @@ final class UTCDateTime
 
     public static function fromStringAndtimezone($string, DateTimeZone $timeZone)
     {
-        return self::box(new DateTime($string, $timeZone));
+        $pieces = explode('.', $string);
+
+        switch (count($pieces)) {
+        case 1:
+            return self::box(new DateTime($string, $timeZone));
+        case 2:
+            list($dateTime, $fractional) = $pieces;
+            $padded = str_pad($fractional, 6, '0', STR_PAD_RIGHT);
+
+            return self::box(new DateTime($dateTime, $timeZone))
+                        ->withUsec((int)$padded);
+        default:
+            throw new InvalidArgumentException(
+                "expected ISO8601 with/without one fractional part separated by dot, got " . var_export($string, true)
+            );
+        }
     }
 
     public static function fromString($string)
