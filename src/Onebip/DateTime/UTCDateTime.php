@@ -338,6 +338,12 @@ final class UTCDateTime
 
     public function withUsec($usec)
     {
+        if ($usec < 0 || $usec > 999999) {
+            throw new \InvalidArgumentException(
+                "usecs must be within 0 and 999999, got " . var_export($usec, true)
+            );
+        }
+
         return new self(
             $this->sec(),
             $usec

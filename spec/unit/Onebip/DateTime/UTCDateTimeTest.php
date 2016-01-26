@@ -527,6 +527,26 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage usecs must be within 0 and 999999, got 1000000
+     */
+    public function testUsecGreaterThanRange()
+    {
+        UTCDateTime::box('2015-01-01')
+            ->withUsec(1000000);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage usecs must be within 0 and 999999, got -1
+     */
+    public function testUsecLessThenRange()
+    {
+        UTCDateTime::box('2015-01-01')
+            ->withUsec(-1);
+    }
+
     public function testItCanBeBoxedWithCustomTimeZone()
     {
         $boxed = UTCDateTime::fromStringAndTimezone(
