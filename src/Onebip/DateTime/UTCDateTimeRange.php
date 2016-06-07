@@ -49,6 +49,14 @@ final class UTCDateTimeRange
         }
     }
 
+    private function toOperatorParenthesis($toOperator)
+    {
+        switch ($toOperator) {
+            case self::LESS_THAN: return ')';
+            case self::LESS_THAN_EQUALS: return ']';
+        }
+    }
+
     public function toMongoQueryOnField($fieldName, callable $formatter = null)
     {
         return [$fieldName => $this->toMongoQuery($formatter)];
@@ -105,6 +113,17 @@ final class UTCDateTimeRange
                 return $dateTime->addMonths($increment);
             }
         );
+    }
+
+    public function __debugInfo()
+    {
+        $debug = 'UTCDateTimeRange: [';
+        $debug .= $this->from->toIso8601WithMicroseconds();
+        $debug .= ',';
+        $debug .= $this->to->toIso8601WithMicroseconds();
+        $debug .= $this->toOperatorParenthesis($this->toOperator);
+
+        return $debug;
     }
 
     private function generatorWith(callable $incrementer)
