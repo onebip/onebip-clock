@@ -224,14 +224,14 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
                     UTCDateTime::box('2015-01-01 03:00:00.123456'),
                     UTCDateTime::box('2015-04-01 05:00:00.123456')
                 ),
-                'UTCDateTimeRange: [2015-01-01T03:00:00.123456+0000,2015-04-01T05:00:00.123456+0000]',
+                '[2015-01-01T03:00:00.123456+0000,2015-04-01T05:00:00.123456+0000]',
             ],
             [
                 UTCDateTimeRange::fromIncludedToExcluded(
                     UTCDateTime::box('2015-01-01 03:00:00.123456'),
                     UTCDateTime::box('2015-04-01 05:00:00.123456')
                 ),
-                'UTCDateTimeRange: [2015-01-01T03:00:00.123456+0000,2015-04-01T05:00:00.123456+0000)',
+                '[2015-01-01T03:00:00.123456+0000,2015-04-01T05:00:00.123456+0000)',
             ],
         ];
     }
@@ -241,6 +241,6 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
      */
     public function testDebugInfo(UTCDateTimeRange $range, $expected)
     {
-        $this->assertEquals($expected, $range->__debugInfo());
+        $this->assertEquals(['ISO' => $expected], $range->__debugInfo());
     }
 }

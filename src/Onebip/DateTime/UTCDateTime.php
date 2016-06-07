@@ -379,6 +379,6 @@ final class UTCDateTime
 
     public function __debugInfo()
     {
-        return 'UTCDateTime: ' . $this->toIso8601WithMicroseconds();
+        return ['ISO' => $this->toIso8601WithMicroseconds()];
     }
 }

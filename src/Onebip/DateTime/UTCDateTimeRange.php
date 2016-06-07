@@ -117,13 +117,13 @@ final class UTCDateTimeRange
 
     public function __debugInfo()
     {
-        $debug = 'UTCDateTimeRange: [';
+        $debug = '[';
         $debug .= $this->from->toIso8601WithMicroseconds();
         $debug .= ',';
         $debug .= $this->to->toIso8601WithMicroseconds();
         $debug .= $this->toOperatorParenthesis($this->toOperator);
 
-        return $debug;
+        return ['ISO' => $debug];
     }
 
     private function generatorWith(callable $incrementer)
