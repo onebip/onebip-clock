@@ -652,4 +652,11 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
     {
         UTCDateTime::box('2016-01-26 09:34:02.1234567');
     }
+
+    public function testDebugInfo()
+    {
+        $iso = '2016-01-01T10:00:42.123456+0000';
+
+        $this->assertEquals("UTCDateTime: $iso", UTCDateTime::box($iso)->__debugInfo());
+    }
 }

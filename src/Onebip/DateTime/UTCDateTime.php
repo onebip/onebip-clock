@@ -376,4 +376,9 @@ final class UTCDateTime
     {
         return $this->toDateTime()->diff($another->toDateTime());
     }
+
+    public function __debugInfo()
+    {
+        return 'UTCDateTime: ' . $this->toIso8601WithMicroseconds();
+    }
 }
