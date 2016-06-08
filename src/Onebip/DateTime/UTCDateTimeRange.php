@@ -1,6 +1,8 @@
 <?php
 namespace Onebip\DateTime;
 
+use DomainException;
+
 final class UTCDateTimeRange
 {
     private $from;
@@ -10,6 +12,9 @@ final class UTCDateTimeRange
 
     const LESS_THAN = 1;
     const LESS_THAN_EQUALS = 2;
+
+    const ASCENDING = 1;
+    const DESCENDING = 2;
 
     public static function fromIncludedToExcluded(UTCDateTime $from, UTCDateTime $to)
     {
@@ -124,6 +129,28 @@ final class UTCDateTimeRange
         $debug .= $this->toOperatorParenthesis($this->toOperator);
 
         return ['ISO' => $debug];
+    }
+
+    public function reverse()
+    {
+        if ($this->toOperator === self::LESS_THAN) {
+            throw new DomainException("can't reverse an open range");
+        }
+
+        return new self(
+            $this->to,
+            $this->from,
+            $this->toOperator
+        );
+    }
+
+    public function direction()
+    {
+        if ($this->from->lessThanOrEqual($this->to)) {
+            return self::ASCENDING;
+        } else {
+            return self::DESCENDING;
+        }
     }
 
     private function generatorWith(callable $incrementer)
