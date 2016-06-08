@@ -243,4 +243,36 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(['ISO' => $expected], $range->__debugInfo());
     }
+
+    public function testReverse()
+    {
+        $this->assertEquals(
+            UTCDateTimeRange::fromIncludedToIncluded(
+                UTCDateTime::box('2015-01-01 03:00:00.123456'),
+                UTCDateTime::box('2015-04-01 05:00:00.123456')
+            ),
+            UTCDateTimeRange::fromIncludedToIncluded(
+                UTCDateTime::box('2015-04-01 05:00:00.123456'),
+                UTCDateTime::box('2015-01-01 03:00:00.123456')
+            )->reverse()
+        );
+    }
+
+    /**
+     * @expectedException DomainException
+     * @expectedExceptionMessage can't reverse an open range
+     */
+    public function testImpossibleReverse()
+    {
+        $this->assertEquals(
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2015-01-01 03:00:00.123456'),
+                UTCDateTime::box('2015-04-01 05:00:00.123456')
+            ),
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2015-04-01 05:00:00.123456'),
+                UTCDateTime::box('2015-01-01 03:00:00.123456')
+            )->reverse()
+        );
+    }
 }

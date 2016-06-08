@@ -1,6 +1,8 @@
 <?php
 namespace Onebip\DateTime;
 
+use DomainException;
+
 final class UTCDateTimeRange
 {
     private $from;
@@ -124,6 +126,19 @@ final class UTCDateTimeRange
         $debug .= $this->toOperatorParenthesis($this->toOperator);
 
         return ['ISO' => $debug];
+    }
+
+    public function reverse()
+    {
+        if ($this->toOperator === self::LESS_THAN) {
+            throw new DomainException("can't reverse an open range");
+        }
+
+        return new self(
+            $this->to,
+            $this->from,
+            $this->toOperator
+        );
     }
 
     private function generatorWith(callable $incrementer)
