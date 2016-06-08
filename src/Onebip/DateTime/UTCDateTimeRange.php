@@ -13,6 +13,9 @@ final class UTCDateTimeRange
     const LESS_THAN = 1;
     const LESS_THAN_EQUALS = 2;
 
+    const ASCENDING = 1;
+    const DESCENDING = 2;
+
     public static function fromIncludedToExcluded(UTCDateTime $from, UTCDateTime $to)
     {
         return new self($from, $to, self::LESS_THAN);
@@ -139,6 +142,15 @@ final class UTCDateTimeRange
             $this->from,
             $this->toOperator
         );
+    }
+
+    public function direction()
+    {
+        if ($this->from->lessThanOrEqual($this->to)) {
+            return self::ASCENDING;
+        } else {
+            return self::DESCENDING;
+        }
     }
 
     private function generatorWith(callable $incrementer)

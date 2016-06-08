@@ -275,4 +275,31 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
             )->reverse()
         );
     }
+
+    public function testDirection()
+    {
+        $this->assertSame(
+            UTCDateTimeRange::ASCENDING,
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2015-01-01 03:00:00.123456'),
+                UTCDateTime::box('2015-04-01 05:00:00.123456')
+            )->direction()
+        );
+
+        $this->assertSame(
+            UTCDateTimeRange::ASCENDING,
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2015-01-01 03:00:00.123456'),
+                UTCDateTime::box('2015-01-01 03:00:00.123456')
+            )->direction()
+        );
+
+        $this->assertSame(
+            UTCDateTimeRange::DESCENDING,
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2015-04-01 05:00:00.123456'),
+                UTCDateTime::box('2015-01-01 03:00:00.123456')
+            )->direction()
+        );
+    }
 }
