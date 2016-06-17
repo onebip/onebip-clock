@@ -10,11 +10,13 @@ cache:
   directories:
     - $HOME/composer/.cache
 
+before_install:
+    - phpenv config-add travis/etc/php-mongo.ini
+    - pecl install mongodb
+    - echo "extension=mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
 install:
   - composer install --prefer-dist --no-interaction
 
-before_script: phpenv config-add travis/etc/php-mongo.ini
-
 script:
   - vendor/bin/phpunit
-

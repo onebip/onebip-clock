@@ -1,11 +1,12 @@
 <?php
 namespace Onebip\DateTime;
 
-use MongoDate;
+use DateInterval;
 use DateTime;
 use DateTimeZone;
-use DateInterval;
 use InvalidArgumentException;
+use MongoDB\BSON\UTCDateTime as MongoUTCDateTime;
+use MongoDate;
 
 final class UTCDateTime
 {
@@ -26,6 +27,13 @@ final class UTCDateTime
     public function toMongoDate()
     {
         return new MongoDate($this->sec, $this->usec);
+    }
+
+    public function toMongoUTCDateTime()
+    {
+        return new MongoUTCDateTime(
+            $this->sec * 1000 + (int) round($this->usec / 1000)
+        );
     }
 
     public function toDateTime(DateTimeZone $timeZone = null)
@@ -112,6 +120,15 @@ final class UTCDateTime
                     '%s is not a valid value to box',
                     var_export($dateToBox, true)
                 )
+            );
+        }
+
+        if ($dateToBox instanceof MongoUTCDateTime) {
+            $msec = (string)$dateToBox + 0;
+
+            return new self(
+                (int) ($msec / 1000),
+                1000 * ($msec % 1000)
             );
         }
 

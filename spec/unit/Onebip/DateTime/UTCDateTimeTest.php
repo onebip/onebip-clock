@@ -1,13 +1,14 @@
 <?php
 namespace Onebip\DateTime;
 
-use PHPUnit_Framework_TestCase;
-use MongoDate;
+use DateInterval;
 use DateTime;
 use DateTimeZone;
-use DateInterval;
 use Eris;
 use Eris\Generator;
+use MongoDB\BSON\UTCDateTime as MongoUTCDateTime;
+use MongoDate;
+use PHPUnit_Framework_TestCase;
 
 class UTCDateTimeTest extends PHPUnit_Framework_TestCase
 {
@@ -19,6 +20,14 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $dateTime = UTCDateTime::box($mongoDate);
 
         $this->assertEquals($mongoDate, $dateTime->toMongoDate());
+    }
+
+    public function testBoxingUTCMongoDate()
+    {
+        $mongoDate = new MongoUTCDateTime(1466170836123);
+        $dateTime = UTCDateTime::box($mongoDate);
+
+        $this->assertEquals($mongoDate, $dateTime->toMongoUTCDateTime());
     }
 
     public function testBoxingDateTime()
