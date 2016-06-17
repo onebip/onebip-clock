@@ -189,7 +189,7 @@ final class UTCDateTime
 
     public static function now()
     {
-        return self::box(new MongoDate());
+        return self::fromMicrotime(microtime());
     }
 
     public static function fromMicrotime($microtimeString)

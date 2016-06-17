@@ -134,15 +134,6 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull(UTCDateTime::now());
     }
 
-    public function testNowFactoryMethodHasMillesecondsResolution()
-    {
-        $now = UTCDateTime::now();
-        usleep(333);
-        $later = UTCDateTime::now();
-        $this->assertEquals(0, $now->usec() % 1000);
-        $this->assertEquals(0, $later->usec() % 1000);
-    }
-
     /**
      * @requires extension mongo
      */
