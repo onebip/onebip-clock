@@ -6,6 +6,9 @@ use PHPUnit_Framework_TestCase;
 
 class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @requires extension mongo
+     */
     public function testItCanBuildAClosedInterval()
     {
         $range = UTCDateTimeRange::fromIncludedToIncluded(
@@ -22,6 +25,9 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testItCanBuildARightOpenInterval()
     {
         $range = UTCDateTimeRange::fromIncludedToExcluded(
@@ -58,6 +64,9 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testToMongoQueryOnFieldShouldReturnTheSameQueryTheNotParameterizedVersion()
     {
         $range = UTCDateTimeRange::fromIncludedToIncluded(

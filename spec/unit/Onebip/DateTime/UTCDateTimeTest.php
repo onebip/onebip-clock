@@ -14,6 +14,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
+    /**
+     * @requires extension mongo
+     */
     public function testBoxingMongoDate()
     {
         $mongoDate = new MongoDate();
@@ -22,6 +25,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($mongoDate, $dateTime->toMongoDate());
     }
 
+    /**
+     * @requires extension mongodb
+     */
     public function testBoxingUTCMongoDate()
     {
         $mongoDate = new MongoUTCDateTime(1466170836123);
@@ -79,6 +85,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testBoxingDateTimeAndUnboxingMongoDate()
     {
         $date = new DateTime();
@@ -94,6 +103,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedOutput, $output);
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testBoxingMongoDateAndUnboxingDateTime()
     {
         $mongoDate = new MongoDate();
@@ -131,6 +143,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $later->usec() % 1000);
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testPrecisionIsMaintainedwhenCreatedFromAMicrotimeString()
     {
         $this->assertEquals(
@@ -152,6 +167,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         UTCDateTime::fromMicrotime('1 1000');
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testFromIso8601FactoryMethod()
     {
         $this->assertEquals(
@@ -238,6 +256,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testPrecisionIsKeptEvenDuringSubtractionOfSecondsOperation()
     {
         $this->assertEquals(
@@ -246,6 +267,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testPrecisionIsKeptEvenDuringDifferenceOfTimesOperation()
     {
         $this->assertEquals(
@@ -257,6 +281,9 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @requires extension mongo
+     */
     public function testCanAddSeconds()
     {
         $this->assertEquals(
