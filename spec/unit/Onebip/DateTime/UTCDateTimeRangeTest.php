@@ -2,6 +2,7 @@
 namespace Onebip\DateTime;
 
 use MongoDate;
+use MongoDB;
 use PHPUnit_Framework_TestCase;
 
 class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
@@ -309,6 +310,25 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
                 UTCDateTime::box('2015-04-01 05:00:00.123456'),
                 UTCDateTime::box('2015-01-01 03:00:00.123456')
             )->direction()
+        );
+    }
+
+    /**
+     * @requires extension mongodb
+     */
+    public function testToMongoDBQuery()
+    {
+        $range = UTCDateTimeRange::fromIncludedToIncluded(
+            UTCDateTime::box('1985-05-21'),
+            UTCDateTime::box('2015-05-21')
+        );
+
+        $this->assertEquals(
+            [
+                '$gte' => new MongoDB\BSON\UTCDateTime(485481600),
+                '$lte' => new MongoDB\BSON\UTCDateTime(1432166400),
+            ],
+            $range->toMongoDBQuery()
         );
     }
 }

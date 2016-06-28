@@ -46,6 +46,13 @@ final class UTCDateTimeRange
         ];
     }
 
+    public function toMongoDBQuery()
+    {
+        return $this->toMongoQuery(function ($date) {
+            return $date->toMongoUTCDateTime();
+        });
+    }
+
     private function mongoOperator($toOperator)
     {
         switch ($toOperator) {
