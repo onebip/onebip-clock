@@ -342,6 +342,18 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
                 UTCDateTime::fromString('2014-09-01T12:00:01Z')
             )
         );
+
+        $this->assertTrue(
+            UTCDateTime::fromString('2014-09-01T12:00:00Z')->greaterThanOrEqual(
+                UTCDateTime::fromString('2014-09-01T12:00:00Z')
+            )
+        );
+
+        $this->assertTrue(
+            UTCDateTime::fromString('2014-09-01T12:00:00.000001Z')->greaterThanOrEqual(
+                UTCDateTime::fromString('2014-09-01T12:00:00Z')
+            )
+        );
     }
 
     public function testSort() {

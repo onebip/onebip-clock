@@ -326,6 +326,11 @@ final class UTCDateTime
         return $this->toDateTime() > $another->toDateTime();
     }
 
+    public function greaterThanOrEqual(UTCDateTime $another)
+    {
+        return self::sort($this, $another) >= 0;
+    }
+
     public function lessThanOrEqual(UTCDateTime $another)
     {
         return self::sort($this, $another) <= 0;
