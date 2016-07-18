@@ -129,6 +129,14 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedDate, $actualDate);
     }
 
+    public function testTimezoneSetInTheStringOverwriteTheDefaultUtcTimeZone()
+    {
+        $expectedDate = UTCDateTime::fromString('2016-07-18T12:53:21+0000');
+        $actualDate = UTCDateTime::fromString('2016-07-18T14:53:21+0200');
+
+        $this->assertEquals($expectedDate, $actualDate);
+    }
+
     public function testNowFactoryMethod()
     {
         $this->assertNotNull(UTCDateTime::now());
