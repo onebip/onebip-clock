@@ -325,8 +325,8 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             [
-                '$gte' => new MongoDB\BSON\UTCDateTime(485481600),
-                '$lte' => new MongoDB\BSON\UTCDateTime(1432166400),
+                '$gte' => new MongoDB\BSON\UTCDateTime(485481600000),
+                '$lte' => new MongoDB\BSON\UTCDateTime(1432166400000),
             ],
             $range->toMongoDBQuery()
         );
