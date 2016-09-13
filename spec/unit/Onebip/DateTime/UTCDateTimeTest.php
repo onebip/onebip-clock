@@ -707,10 +707,10 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['ISO' => $iso], UTCDateTime::box($iso)->__debugInfo());
     }
 
-    public function testJsonSerialize()
+    public function testItCanBeJsonEncoded()
     {
         $iso = '2016-01-01T10:00:42.123456+0000';
 
-        $this->assertEquals($iso, UTCDateTime::box($iso)->jsonSerialize());
+        $this->assertEquals("\"$iso\"", json_encode(UTCDateTime::box($iso)));
     }
 }
