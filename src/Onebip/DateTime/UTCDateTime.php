@@ -5,10 +5,11 @@ use DateInterval;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
+use JsonSerializable;
 use MongoDB\BSON\UTCDateTime as MongoUTCDateTime;
 use MongoDate;
 
-final class UTCDateTime
+final class UTCDateTime implements JsonSerializable
 {
     private $sec;
     private $usec;
@@ -397,6 +398,11 @@ final class UTCDateTime
     public function diff(UTCDateTime $another)
     {
         return $this->toDateTime()->diff($another->toDateTime());
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toIso8601WithMicroseconds();
     }
 
     public function __debugInfo()
