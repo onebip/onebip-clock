@@ -331,4 +331,15 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
             $range->toMongoDBQuery()
         );
     }
+
+    public function testItCanGiveTheMaximumRange()
+    {
+        $this->assertEquals(
+            UTCDateTimeRange::fromIncludedToIncluded(
+                UTCDateTime::minimum(),
+                UTCDateTime::maximum()
+            ),
+            UTCDateTimeRange::fromMinimumToMaximum()
+        );
+    }
 }

@@ -26,6 +26,14 @@ final class UTCDateTimeRange
         return new self($from, $to, self::LESS_THAN_EQUALS);
     }
 
+    public static function fromMinimumToMaximum()
+    {
+        return self::fromIncludedToIncluded(
+            UTCDateTime::minimum(),
+            UTCDateTime::maximum()
+        );
+    }
+
     private function __construct($from, $to, $toOperator)
     {
         $this->from = $from;
