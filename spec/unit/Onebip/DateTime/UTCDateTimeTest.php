@@ -42,7 +42,7 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $date = new DateTime();
         $dateTime = UTCDateTime::box($date);
 
-        $output = $dateTime->toDateTime(new DateTimeZone("Europe/Rome"));
+        $output = $dateTime->toDateTime(new DateTimeZone("UTC"));
         $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
         $this->assertEquals($date, $output);
     }
