@@ -449,6 +449,16 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testEndOfDay()
+    {
+        $date = UTCDateTime::fromString('2000-01-01 01:02:03');
+        $roundedDate = $date->endOfDay();
+        $this->assertEquals(
+            UTCDateTime::fromString('2000-01-01 23:59:59'),
+            $roundedDate
+        );
+    }
+
     public function testAddAndSubtractMonthsProperty()
     {
         $this

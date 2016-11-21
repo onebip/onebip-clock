@@ -302,6 +302,13 @@ final class UTCDateTime implements JsonSerializable
         return self::box($newDateTime);
     }
 
+    public function endOfDay()
+    {
+        $newDateTime = $this->toDateTime();
+        $newDateTime->setTime(23, 59, 59);
+        return self::box($newDateTime);
+    }
+
     public function startOfHour()
     {
         $newDateTime = $this->toDateTime();
