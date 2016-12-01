@@ -3,6 +3,8 @@ namespace Onebip\DateTime;
 
 use DateInterval;
 use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 use JsonSerializable;
@@ -49,6 +51,11 @@ final class UTCDateTime implements JsonSerializable
         $date->setTimeZone($timeZone);
 
         return $date;
+    }
+
+    public function toDateTimeImmutable(DateTimeZone $timeZone = null)
+    {
+        return DateTimeImmutable::createFromMutable($this->toDateTime($timeZone));
     }
 
     public function toIso8601WithMilliseconds()
@@ -138,8 +145,7 @@ final class UTCDateTime implements JsonSerializable
         if ($clonedDateToBox instanceof MongoDate) {
             return new self($clonedDateToBox->sec, $clonedDateToBox->usec);
         }
-        if ($clonedDateToBox instanceof DateTime) {
-            $clonedDateToBox->setTimeZone(new DateTimeZone("UTC"));
+        if ($clonedDateToBox instanceof DateTimeInterface) {
             return new self($clonedDateToBox->getTimestamp(), 0);
         }
     }

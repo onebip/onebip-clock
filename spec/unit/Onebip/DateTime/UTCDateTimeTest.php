@@ -3,6 +3,7 @@ namespace Onebip\DateTime;
 
 use DateInterval;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use Eris;
 use Eris\Generator;
@@ -44,6 +45,24 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $output = $dateTime->toDateTime(new DateTimeZone("Europe/Rome"));
         $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
         $this->assertEquals($date, $output);
+    }
+
+    public function testBoxingDateTimeImmutable()
+    {
+        $date = new DateTimeImmutable('2016-01-01 12:34:56 UTC');
+        $dateTime = UTCDateTime::box($date);
+        $output = $dateTime->toDateTime();
+
+        $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
+        $this->assertEquals($date, $output);
+    }
+
+    public function testUnboxingToDateTimeImmutable()
+    {
+        $this->assertEquals(
+            new DateTimeImmutable('2016-01-01 12:34:56', new DateTimeZone('UTC')),
+            UTCDateTime::box('2016-01-01 12:34:56')->toDateTimeImmutable()
+        );
     }
 
     public function testBoxingNullValueReturnsNull()
