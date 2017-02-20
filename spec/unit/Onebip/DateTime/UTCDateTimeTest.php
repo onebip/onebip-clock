@@ -57,6 +57,17 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($date, $output);
     }
 
+    public function testTimestampIsNotAffectedByTimezone()
+    {
+        $date = new DateTime();
+        $dateTime = UTCDateTime::box($date);
+
+        $output = $dateTime->toDateTime(new DateTimeZone('Europe/Rome'));
+
+        $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
+        $this->assertEquals($date, $output);
+    }
+
     public function testUnboxingToDateTimeImmutable()
     {
         $this->assertEquals(
