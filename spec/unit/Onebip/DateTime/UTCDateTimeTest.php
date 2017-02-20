@@ -42,7 +42,7 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $date = new DateTime();
         $dateTime = UTCDateTime::box($date);
 
-        $output = $dateTime->toDateTime(new DateTimeZone("Europe/Rome"));
+        $output = $dateTime->toDateTime();
         $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
         $this->assertEquals($date, $output);
     }
@@ -52,6 +52,17 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $date = new DateTimeImmutable('2016-01-01 12:34:56 UTC');
         $dateTime = UTCDateTime::box($date);
         $output = $dateTime->toDateTime();
+
+        $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
+        $this->assertEquals($date, $output);
+    }
+
+    public function testTimestampIsNotAffectedByTimezone()
+    {
+        $date = new DateTime();
+        $dateTime = UTCDateTime::box($date);
+
+        $output = $dateTime->toDateTime(new DateTimeZone('Europe/Rome'));
 
         $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
         $this->assertEquals($date, $output);
