@@ -379,7 +379,7 @@ final class UTCDateTime implements JsonSerializable
 
     public function toWeek()
     {
-        return $this->toDateTime()->format('W');
+        return $this->toDateTime()->format('Y-W');
     }
 
     public function toYearMonth()
