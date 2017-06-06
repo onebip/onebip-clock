@@ -16,6 +16,8 @@ final class UTCDateTime implements JsonSerializable
     private $sec;
     private $usec;
 
+    const MAX_SECS = 4294967296;
+
     private function __construct($sec, $usec = 0)
     {
         $this->sec = (int) $sec;
@@ -244,7 +246,7 @@ final class UTCDateTime implements JsonSerializable
 
     public static function maximum()
     {
-        return new self(pow(2, 32));
+        return new self(self::MAX_SECS);
     }
 
     public function subtractSeconds($seconds)
@@ -254,7 +256,15 @@ final class UTCDateTime implements JsonSerializable
 
     public function addSeconds($seconds)
     {
-        return new self($this->sec + $seconds, $this->usec);
+        if ($this->sec + $seconds > self::MAX_SECS) {
+            $sec = self::MAX_SECS;
+        } else if ($this->sec + $seconds < 0) {
+            $sec = 0;
+        } else {
+            $sec = $this->sec + $seconds;
+        }
+
+        return new self($sec, $this->usec);
     }
 
     public function add(DateInterval $interval)

@@ -543,6 +543,22 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $added);
     }
 
+    public function testSubtractSecondsFromMinimum()
+    {
+        $this->assertEquals(
+            UTCDateTime::minimum(),
+            UTCDateTime::minimum()->subtractSeconds(1)
+        );
+    }
+
+    public function testAddSecondsToMaximum()
+    {
+        $this->assertEquals(
+            UTCDateTime::maximum(),
+            UTCDateTime::maximum()->addSeconds(1)
+        );
+    }
+
     public function testToIso8601Day()
     {
         $date = UTCDateTime::fromString('2000-01-03 00:00:00');
