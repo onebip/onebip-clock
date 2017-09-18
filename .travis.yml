@@ -2,17 +2,13 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
+  - 7.1
 
 sudo: false
 
 cache:
   directories:
     - $HOME/composer/.cache
-
-before_install:
-    - travis/scripts/install-extension.sh
 
 install:
   - composer install --prefer-dist --no-interaction

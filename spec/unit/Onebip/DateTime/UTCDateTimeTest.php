@@ -15,9 +15,7 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
 {
     use Eris\TestTrait;
 
-    /**
-     * @requires extension mongo
-     */
+
     public function testBoxingMongoDate()
     {
         $mongoDate = new MongoDate();
@@ -26,9 +24,6 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($mongoDate, $dateTime->toMongoDate());
     }
 
-    /**
-     * @requires extension mongodb
-     */
     public function testBoxingUTCMongoDate()
     {
         $mongoDate = new MongoUTCDateTime(1466170836123);
@@ -44,7 +39,7 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
 
         $output = $dateTime->toDateTime();
         $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
-        $this->assertEquals($date, $output);
+        $this->assertEquals($date, $output, '', 1);
     }
 
     public function testBoxingDateTimeImmutable()
@@ -54,7 +49,7 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $output = $dateTime->toDateTime();
 
         $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
-        $this->assertEquals($date, $output);
+        $this->assertEquals($date, $output, '', 1);
     }
 
     public function testTimestampIsNotAffectedByTimezone()
@@ -65,7 +60,7 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         $output = $dateTime->toDateTime(new DateTimeZone('Europe/Rome'));
 
         $this->assertEquals($date->getTimestamp(), $output->getTimestamp());
-        $this->assertEquals($date, $output);
+        $this->assertEquals($date, $output, '', 1);
     }
 
     public function testUnboxingToDateTimeImmutable()
