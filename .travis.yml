@@ -11,6 +11,7 @@ cache:
     - $HOME/composer/.cache
 
 install:
+  - phpenv config-add phpconfig.ini
   - composer install --prefer-dist --no-interaction
 
 script:
