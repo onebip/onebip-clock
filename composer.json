@@ -2,6 +2,7 @@
     "name": "onebip/onebip-clock",
     "license": "MIT",
     "require": {
+        "php": ">=5.6",
         "alcaeus/mongo-php-adapter": "^1.1"
     },
     "require-dev": {
