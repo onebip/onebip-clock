@@ -423,6 +423,11 @@ final class UTCDateTime implements JsonSerializable
         );
     }
 
+    public function endOfMonth()
+    {
+	return $this->toDateTime()->format('Y-m-t');
+    }
+
     public function diff(UTCDateTime $another)
     {
         return $this->toDateTime()->diff($another->toDateTime());

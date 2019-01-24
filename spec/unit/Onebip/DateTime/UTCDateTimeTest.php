@@ -711,6 +711,24 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
         ;
     }
 
+    public function testEndOfMonthWillGiveTheLastDay()
+    {
+	$this->assertEquals(
+	    UTCDateTime::box('1980-01-01')->endOfMonth(),
+	    UTCDateTime::box('1980-01-31')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2020-04-12')->endOfMonth(),
+	    UTCDateTime::box('2020-04-30')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2019-02-12')->endOfMonth(),
+	    UTCDateTime::box('2019-02-28')
+	);
+    }
+
     public function testBoxingWithFractionalSeconds()
     {
         $this->assertEquals(
