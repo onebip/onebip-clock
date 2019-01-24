@@ -729,6 +729,32 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
 	);
     }
 
+    public function testStartOfWeekWillGiveThisWeekMonday()
+    {
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-24')->startOfWeek(),
+	    UTCDateTime::box('2019-01-21')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-21')->startOfWeek(),
+	    UTCDateTime::box('2019-01-21')
+	);
+    }
+
+    public function testEndOfWeekWillGiveThisWeekSunday()
+    {
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-24')->endOfWeek(),
+	    UTCDateTime::box('2019-01-27')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-27')->endOfWeek(),
+	    UTCDateTime::box('2019-01-27')
+	);
+    }
+
     public function testBoxingWithFractionalSeconds()
     {
         $this->assertEquals(

@@ -430,6 +430,20 @@ final class UTCDateTime implements JsonSerializable
 	);
     }
 
+    public function startOfWeek()
+    {
+	return self::box(
+	    $this->toDateTime()->format('Monday this week')
+	);
+    }
+
+    public function endOfWeek()
+    {
+	return self::box(
+	    $this->toDateTime()->format('Sunday this week')
+	);
+    }
+
     public function diff(UTCDateTime $another)
     {
         return $this->toDateTime()->diff($another->toDateTime());
