@@ -433,14 +433,14 @@ final class UTCDateTime implements JsonSerializable
     public function startOfWeek()
     {
 	return self::box(
-	    $this->toDateTime()->format('Monday this week')
+	    $this->toDateTime()->format('monday this week')
 	);
     }
 
     public function endOfWeek()
     {
 	return self::box(
-	    $this->toDateTime()->format('Sunday this week')
+	    $this->toDateTime()->format('sunday this week')
 	);
     }
 
