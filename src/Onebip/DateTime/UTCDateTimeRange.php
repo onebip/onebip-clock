@@ -168,6 +168,11 @@ final class UTCDateTimeRange
         }
     }
 
+    public function sizeInDays()
+    {
+	return 0;
+    }
+
     private function generatorWith(callable $incrementer)
     {
         return new RangeIterator(

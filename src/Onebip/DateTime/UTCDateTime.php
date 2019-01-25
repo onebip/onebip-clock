@@ -418,29 +418,29 @@ final class UTCDateTime implements JsonSerializable
 
     public function startOfMonth()
     {
-        return self::box(
-            $this->toYearMonth() . '-01'
-        );
+	return self::box(
+	    $this->toDateTime()->modify('first day of this month')	
+	);
     }
 
     public function endOfMonth()
     {
 	return self::box(
-	    $this->toDateTime()->format('Y-m-t')
+	    $this->toDateTime()->modify('last day of this month')	
 	);
     }
 
-    public function startOfWeek()
+    public function mondayOfWeek()
     {
 	return self::box(
-	    $this->toDateTime()->format('monday this week')
+	    $this->toDateTime()->modify('monday this week')	
 	);
     }
 
-    public function endOfWeek()
+    public function sundayOfWeek()
     {
 	return self::box(
-	    $this->toDateTime()->format('sunday this week')
+	    $this->toDateTime()->modify('sunday this week')	
 	);
     }
 
