@@ -704,11 +704,55 @@ class UTCDateTimeTest extends PHPUnit_Framework_TestCase
                 $prefix = $date->format('Y-m');
 
                 $this->assertEquals(
-                    $prefix . '-01T00:00:00.000+0000',
-                    UTCDateTime::box($date)->startOfMonth()->toIso8601WithMilliseconds()
+                    $prefix . '-01',
+                    UTCDateTime::box($date)->startOfMonth()->toIso8601Day()
                 );
             })
         ;
+    }
+
+    public function testEndOfMonthWillGiveTheLastDay()
+    {
+	$this->assertEquals(
+	    UTCDateTime::box('1980-01-01')->endOfMonth(),
+	    UTCDateTime::box('1980-01-31')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2020-04-12')->endOfMonth(),
+	    UTCDateTime::box('2020-04-30')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2019-02-12')->endOfMonth(),
+	    UTCDateTime::box('2019-02-28')
+	);
+    }
+
+    public function testStartOfWeekWillGiveThisWeekMonday()
+    {
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-24')->mondayOfWeek(),
+	    UTCDateTime::box('2019-01-21')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-21')->mondayOfWeek(),
+	    UTCDateTime::box('2019-01-21')
+	);
+    }
+
+    public function testEndOfWeekWillGiveThisWeekSunday()
+    {
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-24')->sundayOfWeek(),
+	    UTCDateTime::box('2019-01-27')
+	);
+
+	$this->assertEquals(
+	    UTCDateTime::box('2019-01-27')->sundayOfWeek(),
+	    UTCDateTime::box('2019-01-27')
+	);
     }
 
     public function testBoxingWithFractionalSeconds()
