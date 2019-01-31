@@ -168,6 +168,21 @@ final class UTCDateTimeRange
         }
     }
 
+    public function sizeInDays()
+    {
+        switch ($this->toOperator) {
+        case self::LESS_THAN:
+	    $difference = $this->from->diff($this->to)->days;
+	    if ($difference == 0) {
+		return $difference;
+	    } else {
+		return $difference - 1;
+	    }
+        case self::LESS_THAN_EQUALS:
+            return $this->from->diff($this->to)->days;
+        }
+    }
+
     private function generatorWith(callable $incrementer)
     {
         return new RangeIterator(
