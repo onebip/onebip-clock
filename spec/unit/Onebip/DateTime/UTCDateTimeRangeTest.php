@@ -342,4 +342,39 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
             UTCDateTimeRange::fromMinimumToMaximum()
         );
     }
+
+    public function testInterval()
+    {
+	$this->assertEquals(
+	    0,
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2015-01-01'),
+                UTCDateTime::box('2015-01-01')
+            )->intervalInDays()
+	);
+	
+	$this->assertEquals(
+	    1,
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2014-12-31'),
+                UTCDateTime::box('2015-01-01')
+            )->intervalInDays()
+	);
+	
+	$this->assertEquals(
+	    1,
+            UTCDateTimeRange::fromIncludedToIncluded(
+                UTCDateTime::box('2014-12-31'),
+                UTCDateTime::box('2015-01-01')
+            )->intervalInDays()
+	);
+	
+	$this->assertEquals(
+	    365,
+            UTCDateTimeRange::fromIncludedToExcluded(
+                UTCDateTime::box('2015-01-01'),
+                UTCDateTime::box('2016-01-01')
+            )->intervalInDays()
+	);
+    }
 }

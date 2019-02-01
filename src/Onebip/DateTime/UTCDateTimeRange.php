@@ -168,6 +168,11 @@ final class UTCDateTimeRange
         }
     }
 
+    public function intervalInDays()
+    {
+	return $this->from->diff($this->to)->days;
+    }
+
     private function generatorWith(callable $incrementer)
     {
         return new RangeIterator(
