@@ -168,7 +168,7 @@ final class UTCDateTimeRange
         }
     }
 
-    public function sizeInDays()
+    public function intervalInDays()
     {
 	return $this->from->diff($this->to)->days;
     }

@@ -343,14 +343,14 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testSize()
+    public function testInterval()
     {
 	$this->assertEquals(
 	    0,
             UTCDateTimeRange::fromIncludedToExcluded(
                 UTCDateTime::box('2015-01-01'),
                 UTCDateTime::box('2015-01-01')
-            )->sizeInDays()
+            )->intervalInDays()
 	);
 	
 	$this->assertEquals(
@@ -358,7 +358,7 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
             UTCDateTimeRange::fromIncludedToExcluded(
                 UTCDateTime::box('2014-12-31'),
                 UTCDateTime::box('2015-01-01')
-            )->sizeInDays()
+            )->intervalInDays()
 	);
 	
 	$this->assertEquals(
@@ -366,7 +366,7 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
             UTCDateTimeRange::fromIncludedToIncluded(
                 UTCDateTime::box('2014-12-31'),
                 UTCDateTime::box('2015-01-01')
-            )->sizeInDays()
+            )->intervalInDays()
 	);
 	
 	$this->assertEquals(
@@ -374,7 +374,7 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
             UTCDateTimeRange::fromIncludedToExcluded(
                 UTCDateTime::box('2015-01-01'),
                 UTCDateTime::box('2016-01-01')
-            )->sizeInDays()
+            )->intervalInDays()
 	);
     }
 }
