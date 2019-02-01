@@ -354,7 +354,7 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
 	);
 	
 	$this->assertEquals(
-	    0,
+	    1,
             UTCDateTimeRange::fromIncludedToExcluded(
                 UTCDateTime::box('2014-12-31'),
                 UTCDateTime::box('2015-01-01')
@@ -372,14 +372,6 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
 	$this->assertEquals(
 	    365,
             UTCDateTimeRange::fromIncludedToExcluded(
-                UTCDateTime::box('2015-01-01'),
-                UTCDateTime::box('2016-01-01')
-            )->sizeInDays()
-	);
-
-	$this->assertEquals(
-	    366,
-            UTCDateTimeRange::fromIncludedToIncluded(
                 UTCDateTime::box('2015-01-01'),
                 UTCDateTime::box('2016-01-01')
             )->sizeInDays()
