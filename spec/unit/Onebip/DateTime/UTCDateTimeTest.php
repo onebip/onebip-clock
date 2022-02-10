@@ -112,7 +112,7 @@ class UTCDateTimeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testBoxingDateTimeAndUnboxingMongoDate()
     {
@@ -130,7 +130,7 @@ class UTCDateTimeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testBoxingMongoDateAndUnboxingDateTime()
     {
@@ -169,7 +169,7 @@ class UTCDateTimeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testPrecisionIsMaintainedwhenCreatedFromAMicrotimeString()
     {
@@ -193,7 +193,7 @@ class UTCDateTimeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testFromIso8601FactoryMethod()
     {
@@ -282,7 +282,7 @@ class UTCDateTimeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testPrecisionIsKeptEvenDuringSubtractionOfSecondsOperation()
     {
@@ -293,7 +293,7 @@ class UTCDateTimeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testPrecisionIsKeptEvenDuringDifferenceOfTimesOperation()
     {
@@ -307,7 +307,7 @@ class UTCDateTimeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testCanAddSeconds()
     {

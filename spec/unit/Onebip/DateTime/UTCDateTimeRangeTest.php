@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 class UTCDateTimeRangeTest extends TestCase
 {
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testItCanBuildAClosedInterval()
     {
@@ -28,7 +28,7 @@ class UTCDateTimeRangeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testItCanBuildARightOpenInterval()
     {
@@ -67,7 +67,7 @@ class UTCDateTimeRangeTest extends TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testToMongoQueryOnFieldShouldReturnTheSameQueryTheNotParameterizedVersion()
     {
