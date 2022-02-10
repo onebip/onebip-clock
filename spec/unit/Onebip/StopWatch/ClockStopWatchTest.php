@@ -3,36 +3,35 @@ namespace Onebip\StopWatch;
 
 use DateTime;
 use Onebip\Clock\FixedClock;
+use PHPUnit\Framework\TestCase;
+use Onebip\StopWatch\StopWatchNotStartedException;
 
-class ClockStopWatchTest extends \PHPUnit_Framework_TestCase
+class ClockStopWatchTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->clock = FixedClock::fromIso8601('2015-02-03 00:12:43');
         $this->stopWatch = new ClockStopWatch($this->clock);
     }
 
-    /**
-     * @expectedException Onebip\StopWatch\StopWatchNotStartedException
-     */
     public function testElapsedSecondsWithoutStarting()
     {
+        $this->expectException(StopWatchNotStartedException::class);
+
         $this->stopWatch->elapsedSeconds();
     }
 
-    /**
-     * @expectedException Onebip\StopWatch\StopWatchNotStartedException
-     */
     public function testElapsedMillisecondsWithoutStarting()
     {
+        $this->expectException(StopWatchNotStartedException::class);
+
         $this->stopWatch->elapsedMilliseconds();
     }
 
-    /**
-     * @expectedException Onebip\StopWatch\StopWatchNotStartedException
-     */
     public function testElapsedMicrosecondsWithoutStarting()
     {
+        $this->expectException(StopWatchNotStartedException::class);
+
         $this->stopWatch->elapsedMicroseconds();
     }
 

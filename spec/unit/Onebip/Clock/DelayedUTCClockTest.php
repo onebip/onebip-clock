@@ -2,12 +2,14 @@
 namespace Onebip\Clock;
 
 use Onebip\DateTime\UTCDateTime;
+use PHPUnit\Framework\TestCase;
+use Onebip\UTCClock;
 
-class DelayedUTCClockTest extends \PHPUnit_Framework_TestCase
+class DelayedUTCClockTest extends TestCase
 {
     public function testGivesATimeAFewSecondsInThePast()
     {
-        $original = $this->getMock('Onebip\UTCClock');
+        $original = $this->createMock(UTCClock::class);
         $clock = new DelayedUTCClock($original, 10);
 
         $original->expects($this->once())
