@@ -1,14 +1,15 @@
 <?php
 namespace Onebip\DateTime;
 
+use DomainException;
 use MongoDate;
 use MongoDB;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
+class UTCDateTimeRangeTest extends TestCase
 {
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testItCanBuildAClosedInterval()
     {
@@ -27,7 +28,7 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testItCanBuildARightOpenInterval()
     {
@@ -66,7 +67,7 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @requires extension mongo
+     * @requires extension mongodb
      */
     public function testToMongoQueryOnFieldShouldReturnTheSameQueryTheNotParameterizedVersion()
     {
@@ -268,12 +269,11 @@ class UTCDateTimeRangeTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException DomainException
-     * @expectedExceptionMessage can't reverse an open range
-     */
     public function testImpossibleReverse()
     {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage("can't reverse an open range");
+
         $this->assertEquals(
             UTCDateTimeRange::fromIncludedToExcluded(
                 UTCDateTime::box('2015-01-01 03:00:00.123456'),

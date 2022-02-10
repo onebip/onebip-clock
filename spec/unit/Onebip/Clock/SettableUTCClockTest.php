@@ -2,12 +2,14 @@
 namespace Onebip\Clock;
 
 use Onebip\DateTime\UTCDateTime;
+use PHPUnit\Framework\TestCase;
+use Onebip\UTCClock;
 
-class SettableUTCClockTest extends \PHPUnit_Framework_TestCase
+class SettableUTCClockTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->innerClock = $this->getMock('Onebip\UTCClock');
+        $this->innerClock = $this->createMock(UTCClock::class);
         $this->clock = new SettableUTCClock($this->innerClock);
     }
 
